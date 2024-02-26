@@ -2,9 +2,19 @@ import React, { useState, useCallback } from 'react';
 import axios from 'axios';
 import { debounce } from 'lodash';
 
+// Define a type for your results
+interface SearchResult {
+    _source: {
+        video_title: string;
+        text: string;
+        video_url: string;
+    };
+}
+
+
 const SearchComponent = () => {
     const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
+    const [results, setResults] = useState<SearchResult[]>([]);
     const [isSearching, setIsSearching] = useState(false);
 
     const handleSearch = useCallback(debounce(async (query) => {
